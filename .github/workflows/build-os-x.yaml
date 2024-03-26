@@ -24,4 +24,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Check out build script
         uses: actions/checkout@v4
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
       - run: ./build.sh
