@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 ./configure --prefix="$(pwd)"/pgsql --without-icu --without-zlib --without-readline --with-system-tzdata=/usr/share/zoneinfo/
-#./configure --prefix="$(pwd)"/pgsql --without-zlib --without-readline --with-system-tzdata=/usr/share/zoneinfo/
 
 make
 make install
@@ -11,7 +10,8 @@ make all
 make install
 cd ..
 
-chrpath --replace \\\$ORIGIN/../lib pgsql/bin/*
+# distribute license
+cp COPYRIGHT pgsql
 
 tar -czvf postgres.tar.gz pgsql
 
