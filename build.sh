@@ -18,8 +18,6 @@ else
     version=$majorVersion.$minorVersion.$patch
 fi
 
-
-
 ./configure --prefix="$(pwd)"/pgsql --without-icu --without-zlib --without-readline --with-system-tzdata=/usr/share/zoneinfo/
 
 make
