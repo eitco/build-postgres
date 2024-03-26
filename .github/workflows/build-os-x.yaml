@@ -4,7 +4,7 @@ on:
   - push
   - workflow_dispatch
 jobs:
-  Explore-GitHub-Actions:
+  build-osx:
     runs-on: macos-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -13,8 +13,9 @@ jobs:
       - name: Check out postgres code
         uses: actions/checkout@master
         with:
-          name: https://github.com/postgres/postgres.git
+          repository: https://github.com/postgres/postgres.git
           ref: refs/tags/REL_16_2
+          fetch-tags: true
       - run: echo "💡 The postgres repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
