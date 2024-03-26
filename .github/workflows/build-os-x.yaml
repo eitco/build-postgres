@@ -22,8 +22,7 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: Check out build script
-        uses: actions/checkout@v4
+      - run: curl https://raw.githubusercontent.com/eitco/build-postgres/main/build.sh > build.sh && chmod +x build.sh
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
