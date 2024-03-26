@@ -23,7 +23,7 @@ jobs:
         with:
           name: "postgres-${{ github.event.inputs.tag }}-osx"
           body: "postgres ${{ github.event.inputs.tag }} osx"
-          artifacts: "postgres-${{ github.event.inputs.tag }}-osx.tar.gz,COPYRIGHT"
+          artifacts: "postgres-*-osx.tar.gz,COPYRIGHT"
           tag: ${{ github.event.inputs.tag }}-osx
           commit: ${{ github.ref_name }}
   build-linux-64:
