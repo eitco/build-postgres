@@ -3,8 +3,8 @@ run-name: ${{ github.actor }} is building postgres 🚀
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: "postgres version to build in the format REL_<MAJOR>_<MINOR>"
+      tag:
+        description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
         required: true
         default: REL_16_2
 jobs:
@@ -41,6 +41,6 @@ jobs:
         with:
           name: "postgres-${{ github.event.inputs.version }}-linux-64"
           body: "postgres ${{ github.event.inputs.version }} linux-64"
-          artifacts: "postgres-${{ github.event.inputs.version }}-linux-64.tar.gz"
+          artifacts: "postgres-*-linux-64.tar.gz"
           tag: ${{ github.event.inputs.version }}-linux-64
           commit: ${{ github.ref_name }}
