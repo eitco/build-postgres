@@ -29,3 +29,8 @@ jobs:
           ls ${{ github.workspace }}
       - run: ./build.sh
       - run: ls -al --recursive pgsql || echo "directory pgsql does not exist"
+      - uses: ncipollo/release-action@v1.14.0
+        with:
+          name: "postgres-16.2-os-x"
+          body: "postgres 16.2 os-x"
+          artifacts: "postgres.tar.gz"
