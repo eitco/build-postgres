@@ -44,21 +44,3 @@ jobs:
           artifacts: "postgres-${{ github.event.inputs.version }}-linux-64.tar.gz"
           tag: ${{ github.event.inputs.version }}-linux-64
           commit: ${{ github.ref_name }}
-  build-windows-x64:
-    runs-on: windows-latest
-    steps:
-      - name: Check out postgres code
-        uses: actions/checkout@v4
-        with:
-          repository: postgres/postgres
-          ref: refs/tags/${{ github.event.inputs.version }}
-          fetch-tags: true
-      - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh  > build.sh && chmod +x build.sh
-      - run: ./build.sh "${{ github.event.inputs.version }}" windows-x64
-      - uses: ncipollo/release-action@v1.14.0
-        with:
-          name: "postgres-${{ github.event.inputs.version }}-windows-x64"
-          body: "postgres ${{ github.event.inputs.version }} windows-x64"
-          artifacts: "postgres-${{ github.event.inputs.version }}-windows-x64.tar.gz"
-          tag: ${{ github.event.inputs.version }}-windows-x64
-          commit: ${{ github.ref_name }}
