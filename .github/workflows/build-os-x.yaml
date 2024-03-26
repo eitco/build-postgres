@@ -11,7 +11,7 @@ jobs:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out postgres code
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           repository: postgres/postgres
           ref: refs/tags/REL_16_2
@@ -22,4 +22,6 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Check out build script
+        uses: actions/checkout@v4
       - run: ./build.sh
