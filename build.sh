@@ -13,5 +13,5 @@ cd ..
 # distribute license
 cp COPYRIGHT pgsql
 
-tar -czvf postgres.tar.gz pgsql
+tar -czvf "postgres-$1-$2.tar.gz" pgsql
 
