@@ -21,11 +21,11 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: ls -al pgsql/bin || echo "pgsql/bin does not exist"
+      - run: ls -al --recursive pgsql || echo "directory pgsql does not exist"
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh > build.sh && chmod +x build.sh
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
       - run: ./build.sh
-      - run: ls -al pgsql/bin || echo "pgsql/bin does not exist"
+      - run: ls -al --recursive pgsql || echo "directory pgsql does not exist"
