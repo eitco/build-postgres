@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: postgres/postgres
-          ref: refs/tags/${{ github.event.inputs.tag }}
+          ref: refs/tags/${{ inputs.tag }}
           fetch-tags: true
       - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh  > build.sh && chmod +x build.sh
       - run: ./build.sh "${{ github.event.inputs.tag }}" osx
