@@ -1,24 +1,24 @@
 name: build postgres on multiple platforms
 run-name: ${{ github.actor }} is building postgres 🚀
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
-        required: true
-        default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+#  workflow_dispatch:
+#    inputs:
+#      tag:
+#        description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
+#        required: true
+#        default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
   workflow_call:
     inputs:
       tag:
         description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
-        required: false
+        required: true
         default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
         type: string
 jobs:
   build-osx:
     runs-on: macos-latest
     steps:
-      - run: echo build event.tag ${{ github.event.inputs.tag }} - tag ${{ github.event.inputs.tag }}
+      - run: echo build event.tag ${{ github.event.inputs.tag }} - tag ${{ inputs.tag }}
       - name: Check out postgres code
         uses: actions/checkout@v4
         with:
