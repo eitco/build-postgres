@@ -7,3 +7,5 @@ on:
 jobs:
   call-build:
     uses: ./.github/workflows/build-postgres.yaml
+#    with:
+#      config-path: .github/labeler.yml
