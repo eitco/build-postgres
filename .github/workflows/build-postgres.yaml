@@ -1,15 +1,19 @@
 name: build postgres on multiple platforms
 run-name: ${{ github.actor }} is building postgres 🚀
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       tag:
         description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
         required: true
         default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+  workflow_call:
+    inputs:
+      tag:
+        description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
+        required: true
+        default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+        type: string
 jobs:
   build-osx:
     runs-on: macos-latest

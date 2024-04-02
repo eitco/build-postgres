@@ -1,0 +1,9 @@
+name: trigger postgres build on push
+run-name: ${{ github.actor }} triggered build 🚀
+on:
+  push:
+    branches:
+      - main
+jobs:
+  call-build:
+    uses: ./.github/build-postgres.yaml
