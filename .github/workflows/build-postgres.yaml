@@ -18,7 +18,7 @@ jobs:
   build-osx:
     runs-on: macos-latest
     steps:
-      - run: echo build tag ${{ github.event.inputs.tag }}
+      - run: echo build event.tag ${{ github.event.inputs.tag }} - tag ${{ github.event.inputs.tag }}
       - name: Check out postgres code
         uses: actions/checkout@v4
         with:
@@ -37,7 +37,7 @@ jobs:
   build-linux-64:
     runs-on: ubuntu-latest
     steps:
-      - run: echo build tag ${{ github.event.inputs.tag }}
+      - run: echo build event.tag ${{ github.event.inputs.tag }} - tag ${{ github.event.inputs.tag }}
       - name: Check out postgres code
         uses: actions/checkout@v4
         with:
