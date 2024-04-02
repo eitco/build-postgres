@@ -18,11 +18,12 @@ jobs:
   build-osx:
     runs-on: macos-latest
     steps:
+      - run: echo build tag ${{ github.event.inputs.tag }}
       - name: Check out postgres code
         uses: actions/checkout@v4
         with:
           repository: postgres/postgres
-          ref: refs/tags/${{ inputs.tag }}
+          ref: refs/tags/${{ github.event.inputs.tag }}
           fetch-tags: true
       - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh  > build.sh && chmod +x build.sh
       - run: ./build.sh "${{ github.event.inputs.tag }}" osx
@@ -36,6 +37,7 @@ jobs:
   build-linux-64:
     runs-on: ubuntu-latest
     steps:
+      - run: echo build tag ${{ github.event.inputs.tag }}
       - name: Check out postgres code
         uses: actions/checkout@v4
         with:
