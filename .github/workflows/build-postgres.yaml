@@ -1,6 +1,9 @@
 name: build postgres on multiple platforms
 run-name: ${{ github.actor }} is building postgres 🚀
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       tag:
