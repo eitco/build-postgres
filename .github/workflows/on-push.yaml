@@ -6,4 +6,4 @@ on:
       - main
 jobs:
   call-build:
-    uses: ./.github/build-postgres.yaml
+    uses: ./.github/build-postgres.yaml@main
