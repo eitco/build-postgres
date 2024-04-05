@@ -28,8 +28,14 @@ make all
 make install
 cd ..
 
+chrpath --replace \\\$ORIGIN/../lib pgsql/bin/*
+
 # distribute license
 cp COPYRIGHT pgsql
 
 tar -czvf "postgres-$version-$2.tar.gz" pgsql
+
+>&2 echo "MAJOR_VERSION=$majorVersion"
+>&2 echo "MINOR_VERSION=$minorVersion"
+>&2 echo "VERSION=$majorVersion.$minorVersion"
 

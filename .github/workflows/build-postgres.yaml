@@ -6,7 +6,7 @@ on:
       tag:
         description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
         required: true
-        default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+        default: REL_16_0 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
   workflow_call:
     inputs:
       tag:
@@ -25,15 +25,17 @@ jobs:
           ref: refs/tags/${{ inputs.tag }}
           fetch-tags: true
       - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh  > build.sh && chmod +x build.sh
-      - run: ./build.sh "${{ inputs.tag }}" osx
+      - name: compile postgres sources and pack
+        id: build
+        run: ./build.sh "${{ inputs.tag }}" osx  2>> "$GITHUB_OUTPUT"
       - uses: ncipollo/release-action@v1.14.0
         with:
-          name: "postgres-${{ inputs.tag }}-osx"
-          body: "postgres ${{ inputs.tag }} osx"
+          name: "postgres-${{ steps.build.outputs.VERSION }}-osx"
+          body: "postgres ${{ steps.build.outputs.VERSION }} osx"
           artifacts: "postgres-*-osx.tar.gz,COPYRIGHT"
-          tag: ${{ inputs.tag }}-osx
+          tag: ${{ steps.build.outputs.VERSION }}-osx
           commit: ${{ github.ref_name }}
-  build-linux-64:
+  build-linux-x64:
     runs-on: ubuntu-latest
     steps:
       - run: echo build event.tag ${{ inputs.tag }}
@@ -44,11 +46,13 @@ jobs:
           ref: refs/tags/${{ inputs.tag }}
           fetch-tags: true
       - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh  > build.sh && chmod +x build.sh
-      - run: ./build.sh "${{ inputs.tag }}" linux-64
+      - name: compile postgres sources and pack
+        id: build
+        run: ./build.sh "${{ inputs.tag }}" linux-x64 2>> "$GITHUB_OUTPUT"
       - uses: ncipollo/release-action@v1.14.0
         with:
-          name: "postgres-${{ inputs.tag }}-linux-64"
-          body: "postgres ${{ inputs.tag }} linux-64"
-          artifacts: "postgres-*-linux-64.tar.gz,COPYRIGHT"
-          tag: ${{ inputs.tag }}-linux-64
+          name: "postgres-${{ steps.build.outputs.VERSION }}-linux-x64"
+          body: "postgres ${{ steps.build.outputs.VERSION }} linux-x64"
+          artifacts: "postgres-*-linux-x64.tar.gz,COPYRIGHT"
+          tag: ${{ steps.build.outputs.VERSION }}-linux-x64
           commit: ${{ github.ref_name }}
