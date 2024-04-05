@@ -33,13 +33,17 @@ if [ "$2" = "osx" ]; then
 
   install_name_tool -add_rpath '@executable_path/../lib' pgsql/bin/*
 
-  for library in psql/lib/*.dylib
+  for library in $(ls psql/lib/*.dylib)
   do
+      echo modifying $library
       otool -l $library
       install_name_tool -id "@rpath/$library" "$library"
       otool -l $library
 
-      install_name_tool -change "$library" "@rpath/$library" pgsql/bin/*
+      for binary in $(ls pgsql/bin/)
+      do
+          install_name_tool -change "$library" "@rpath/$library" $binary
+      done
   done
 
 else
