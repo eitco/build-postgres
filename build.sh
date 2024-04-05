@@ -33,16 +33,16 @@ if [ "$2" = "osx" ]; then
 
   install_name_tool -add_rpath '@executable_path/../lib' pgsql/bin/*
 
-  for library in $(ls psql/lib)
+  for library in $(ls pgsql/lib)
   do
       echo "modifying $library"
-      otool -l "$library"
-      install_name_tool -id "@rpath/$library" "$library"
-      otool -l "$library"
+      echo "otool -l $library" && otool -l "$library"
+      echo install_name_tool -id "@rpath/$library" "$library" && install_name_tool -id "@rpath/$library" "$library"
+      echo otool -l "$library" && otool -l "$library"
 
       for binary in $(ls pgsql/bin/)
       do
-          install_name_tool -change "$library" "@rpath/$library" $binary
+          echo install_name_tool -change "$library" "@rpath/$library" "$binary" && install_name_tool -change "$library" "@rpath/$library" "$binary"
       done
   done
 
@@ -54,7 +54,7 @@ fi
 # distribute license
 cp COPYRIGHT pgsql
 
-tar -czvf "postgres-$version-$2.tar.gz" pgsql
+tar -czvf "postgres-$version-$2.tar.gz" pgsql > /dev/null
 
 {
   echo "MAJOR_VERSION=$majorVersion"
