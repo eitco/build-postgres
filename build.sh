@@ -28,7 +28,24 @@ make all
 make install
 cd ..
 
-chrpath --replace '$ORIGIN/../lib' pgsql/bin/*
+if [ "$2" = "osx" ]; then
+
+
+  install_name_tool -add_rpath '@executable_path/../lib' pgsql/bin/*
+
+  for library in psql/lib/*.dylib
+  do
+      otool -l $library
+      install_name_tool -id "@rpath/$library" "$library"
+      otool -l $library
+
+      install_name_tool -change "$library" "@rpath/$library" pgsql/bin/*
+  done
+
+else
+
+  chrpath --replace '$ORIGIN/../lib' pgsql/bin/*
+fi
 
 # distribute license
 cp COPYRIGHT pgsql
