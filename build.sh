@@ -28,7 +28,7 @@ make all
 make install
 cd ..
 
-chrpath --replace \\\$ORIGIN/../lib pgsql/bin/*
+chrpath --replace '$ORIGIN/../lib' pgsql/bin/*
 
 # distribute license
 cp COPYRIGHT pgsql
