@@ -6,7 +6,7 @@ on:
       tag:
         description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
         required: true
-        default: REL_16_0 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+        default: REL_16_1 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
   workflow_call:
     inputs:
       tag:
@@ -27,7 +27,7 @@ jobs:
       - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh  > build.sh && chmod +x build.sh
       - name: compile postgres sources and pack
         id: build
-        run: ./build.sh "${{ inputs.tag }}" osx  2>> "$GITHUB_OUTPUT"
+        run: ./build.sh "${{ inputs.tag }}" osx
       - uses: ncipollo/release-action@v1.14.0
         with:
           name: "postgres-${{ steps.build.outputs.VERSION }}-osx"
@@ -49,7 +49,7 @@ jobs:
       - run: sudo apt-get install chrpath -y
       - name: compile postgres sources and pack
         id: build
-        run: ./build.sh "${{ inputs.tag }}" linux-x64 2>> "$GITHUB_OUTPUT"
+        run: ./build.sh "${{ inputs.tag }}" linux-x64
       - uses: ncipollo/release-action@v1.14.0
         with:
           name: "postgres-${{ steps.build.outputs.VERSION }}-linux-x64"

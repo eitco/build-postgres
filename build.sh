@@ -35,7 +35,9 @@ cp COPYRIGHT pgsql
 
 tar -czvf "postgres-$version-$2.tar.gz" pgsql
 
->&2 echo "MAJOR_VERSION=$majorVersion"
->&2 echo "MINOR_VERSION=$minorVersion"
->&2 echo "VERSION=$majorVersion.$minorVersion"
+{
+  echo "MAJOR_VERSION=$majorVersion"
+  echo "MINOR_VERSION=$minorVersion"
+  echo "VERSION=$majorVersion.$minorVersion"
+} >> "$GITHUB_OUTPUT"
 
