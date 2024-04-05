@@ -33,15 +33,17 @@ if [ "$2" = "osx" ]; then
 
   for library in $(ls pgsql/lib)
   do
-      echo "modifying $library"
-      echo "otool -l $library" && otool -l "$library"
-      echo install_name_tool -id "@rpath/$library" "$library" && install_name_tool -id "@rpath/$library" "$library"
-      echo otool -l "$library" && otool -l "$library"
+      lib_rel=pgsql/lib/$library
+      echo "modifying lib_rel"
+      echo "otool -l $lib_rel" && otool -l "$lib_rel"
+      echo install_name_tool -id "@rpath/$library" "$lib_rel" && install_name_tool -id "@rpath/$library" "$lib_rel"
+      echo otool -l "$lib_rel" && otool -l "$lib_rel"
 
       for binary in $(ls pgsql/bin/)
       do
-          echo install_name_tool -add_rpath '@executable_path/../lib' "$binary" && install_name_tool -add_rpath '@executable_path/../lib' "$binary"
-          echo install_name_tool -change "$library" "@rpath/$library" "$binary" && install_name_tool -change "$library" "@rpath/$library" "$binary"
+          bin_rel=pgsql/bin/$binary
+          echo install_name_tool -add_rpath '@executable_path/../lib' "$bin_rel" && install_name_tool -add_rpath '@executable_path/../lib' "$bin_rel"
+          echo install_name_tool -change "$library" "@rpath/$library" "$bin_rel" && install_name_tool -change "$library" "@rpath/$library" "$bin_rel"
       done
   done
 
