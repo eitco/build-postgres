@@ -37,16 +37,16 @@ if [ "$2" = "osx" ]; then
         echo install_name_tool -add_rpath '@executable_path/../lib' "$bin_rel" && install_name_tool -add_rpath '@executable_path/../lib' "$bin_rel"
     done
 
-  for library in $(ls pgsql/lib)
+  for library in $(ls pgsql/lib/*.dylib)
   do
       lib_rel=pgsql/lib/$library
       echo "modifying lib_rel"
-      echo install_name_tool -id "@rpath/$library" "$lib_rel" && install_name_tool -id "@rpath/$library" "$lib_rel"
+      install_name_tool -id "@rpath/$library" "$lib_rel"
 
       for binary in $(ls pgsql/bin/)
       do
           bin_rel=pgsql/bin/$binary
-          echo install_name_tool -change "$library" "@rpath/$library" "$bin_rel" && install_name_tool -change "$library" "@rpath/$library" "$bin_rel"
+          install_name_tool -change "$library" "@rpath/$library" "$bin_rel"
       done
   done
 
