@@ -6,7 +6,7 @@ on:
       tag:
         description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
         required: true
-        default: REL_16_1 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+        default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
   workflow_call:
     inputs:
       tag:
@@ -17,7 +17,7 @@ jobs:
   build-osx:
     runs-on: macos-latest
     steps:
-      - run: echo build event.tag ${{ inputs.tag }}
+      - run: echo build event.tag ${{ inputs.tag }} && install_name_tool --help
       - name: Check out postgres code
         uses: actions/checkout@v4
         with:
