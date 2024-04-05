@@ -46,6 +46,7 @@ jobs:
           ref: refs/tags/${{ inputs.tag }}
           fetch-tags: true
       - run: curl https://raw.githubusercontent.com/eitco/build-postgres/${{ github.ref_name }}/build.sh  > build.sh && chmod +x build.sh
+      - run: sudo apt-get install chrpath -y
       - name: compile postgres sources and pack
         id: build
         run: ./build.sh "${{ inputs.tag }}" linux-x64 2>> "$GITHUB_OUTPUT"
