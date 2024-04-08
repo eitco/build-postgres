@@ -6,7 +6,7 @@ on:
       tag:
         description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
         required: true
-        default: REL_16_2 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+        default: REL_16_0 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
   workflow_call:
     inputs:
       tag:
@@ -35,6 +35,7 @@ jobs:
           artifacts: "postgres-*-osx.tar.gz,COPYRIGHT"
           tag: ${{ steps.build.outputs.VERSION }}-osx
           commit: ${{ github.ref_name }}
+          allowUpdates: true
   build-linux-x64:
     runs-on: ubuntu-latest
     steps:
@@ -57,3 +58,4 @@ jobs:
           artifacts: "postgres-*-linux-x64.tar.gz,COPYRIGHT"
           tag: ${{ steps.build.outputs.VERSION }}-linux-x64
           commit: ${{ github.ref_name }}
+          allowUpdates: true
