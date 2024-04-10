@@ -39,7 +39,7 @@ if [ "$2" = "osx" ]; then
 
   for lib_rel in $(ls pgsql/lib/*.dylib)
   do
-      library=${library#pgsql/lib/}
+      library=${lib_rel#pgsql/lib/}
       echo "modifying $lib_rel"
       install_name_tool -id "@rpath/$library" "$lib_rel"
 
