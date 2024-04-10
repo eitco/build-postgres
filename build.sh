@@ -43,12 +43,20 @@ if [ "$2" = "osx" ]; then
       echo "modifying $lib_rel"
       install_name_tool -id "@rpath/$library" "$lib_rel"
 
+      otool -L "$lib_rel"
+
       for binary in $(ls pgsql/bin/)
       do
           bin_rel=pgsql/bin/$binary
           install_name_tool -change "$library" "@rpath/$library" "$bin_rel"
           install_name_tool -change "$(pwd)/pgsql/lib/$library" "@rpath/$library" "$bin_rel"
       done
+  done
+
+  for binary in $(ls pgsql/bin/)
+  do
+      bin_rel=pgsql/bin/$binary
+      otool -L "$bin_rel"
   done
 
 else
