@@ -8,4 +8,4 @@ jobs:
   call-build:
     uses: ./.github/workflows/build-postgres.yaml
     with:
-      tag: REL_10_20 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+      tag: REL_10_21 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
