@@ -47,7 +47,7 @@ if [ "$2" = "osx" ]; then
       do
           bin_rel=pgsql/bin/$binary
           install_name_tool -change "$library" "@rpath/$library" "$bin_rel"
-          install_name_tool -change "/usr/lib/$library" "@rpath/$library" "$bin_rel"
+          install_name_tool -change "$(pwd)/pgsql/lib/$library" "@rpath/$library" "$bin_rel"
       done
   done
 
