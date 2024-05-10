@@ -6,7 +6,7 @@ on:
       tag:
         description: "postgres tag to build in the format REL_<MAJOR>_<MINOR>"
         required: true
-        default: REL7_3_21 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
+        default: REL8_2_23 # DO NOT CHANGE THIS LINE. this default value will be overridden automatically
   workflow_call:
     inputs:
       tag:
