@@ -37,7 +37,7 @@ jobs:
           commit: ${{ github.ref_name }}
           allowUpdates: true
   build-linux-x64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - run: echo build event.tag ${{ inputs.tag }}
       - name: Check out postgres code
