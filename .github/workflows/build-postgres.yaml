@@ -15,7 +15,7 @@ on:
         type: string
 jobs:
   build-osx:
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - run: echo build event.tag ${{ inputs.tag }}
       - name: Check out postgres code
